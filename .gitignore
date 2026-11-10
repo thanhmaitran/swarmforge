@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build
+build/
+dist/
+*.so
+*.pyd
+*.dll
+*.dylib
+*.exe
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+
+# C++
+*.o
+*.obj
+*.a
+*.lib
+
+# Node
+node_modules/
+apps/dashboard/dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Generated data (experiments/results, reports and docs/images are deliberately tracked)
+data/raw/
+data/interim/
+data/processed/
+site/

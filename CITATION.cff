@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use SwarmForge, please cite this software."
+title: "SwarmForge"
+abstract: >
+  A multi-robot coordination and autonomous fleet simulation platform with
+  task allocation, cooperative path planning, collision avoidance and
+  reproducible benchmarking.
+type: software
+authors:
+  - family-names: "Tran"
+    given-names: "Thanh"
+version: 0.1.0
+license: MIT
+# TODO before publishing: add repository-code (GitHub URL) and the release DOI.

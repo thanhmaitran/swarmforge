@@ -1,0 +1,65 @@
+site_name: SwarmForge Documentation
+site_description: >
+  Multi-Robot Coordination and Autonomous Fleet Simulation Platform
+repo_url: https://github.com/YOUR_USERNAME/SwarmForge
+
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - User guide:
+      - Installation: user-guide/installation.md
+      - Quick start: user-guide/quickstart.md
+      - Configuration: user-guide/configuration.md
+      - Simulation: user-guide/simulation.md
+      - Experiments: user-guide/experiments.md
+  - Architecture:
+      - System overview: architecture/system-overview.md
+      - Components: architecture/component-architecture.md
+      - Simulation lifecycle: architecture/simulation-lifecycle.md
+      - Communication: architecture/communication-architecture.md
+      - Data flow: architecture/data-flow.md
+  - Algorithms:
+      - Task allocation: algorithms/task-allocation.md
+      - Hungarian: algorithms/hungarian.md
+      - Auction: algorithms/auction.md
+      - Path planning: algorithms/path-planning.md
+      - Conflict-Based Search: algorithms/conflict-based-search.md
+      - Collision avoidance: algorithms/collision-avoidance.md
+      - Kinematics: algorithms/kinematics.md
+  - Design decisions:
+      - ADR-0001 Python + C++: design-decisions/ADR-0001-python-cpp-architecture.md
+      - ADR-0002 Grid simulation: design-decisions/ADR-0002-grid-based-simulation.md
+      - ADR-0003 Discrete-time model: design-decisions/ADR-0003-discrete-event-model.md
+      - ADR-0004 Core independence: design-decisions/ADR-0004-core-simulator-independence.md
+      - ADR-0005 Reproducibility: design-decisions/ADR-0005-experiment-reproducibility.md
+  - Research:
+      - Research questions: research/research-questions.md
+      - Methodology: research/experimental-methodology.md
+      - Limitations: research/limitations.md
+      - Future work: research/future-work.md
+  - Experiments:
+      - 01 Scalability: experiments/experiment-01-scalability.md
+      - 02 Allocation: experiments/experiment-02-allocation.md
+      - 03 Planning: experiments/experiment-03-planning.md
+      - 04 Collision avoidance: experiments/experiment-04-collision.md
+      - 05 Dynamic environment: experiments/experiment-05-dynamic-environment.md
+      - 06 Communication: experiments/experiment-06-communication.md
+      - 07 Heterogeneous fleet: experiments/experiment-07-heterogeneous-fleet.md
+      - 08 Energy: experiments/experiment-08-energy.md
+  - Development:
+      - Environment setup: development/environment-setup.md
+      - Workflow: development/development-workflow.md
+      - Testing: development/testing.md
+      - Contributing: development/contributing.md

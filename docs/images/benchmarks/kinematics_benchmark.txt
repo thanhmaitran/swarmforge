@@ -1,0 +1,8 @@
+$ python benchmarks/motion/bench_kinematics.py 300000 7
+python_loop           1,427,927 updates/s  (x1.0 vs python loop)
+ctypes_per_call         462,552 updates/s  (x0.3 vs python loop)
+ctypes_batch         40,087,433 updates/s  (x28.1 vs python loop)
+ctypes_batch_poses        957,314 updates/s  (x0.7 vs python loop)
+cpp_native           41,481,383 updates/s  (x29.1 vs python loop)
+wrote /home/claude/SwarmForge/benchmarks/motion/kinematics_results.json
+[exit code 0]

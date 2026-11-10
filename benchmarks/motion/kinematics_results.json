@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "repetitions": 7,
+    "note": "same dt, velocities and update formula in every variant"
+  },
+  "results": {
+    "python_loop": {
+      "iterations": 300000,
+      "median_s": 0.21009476699998686,
+      "min_s": 0.18498794499998894,
+      "max_s": 0.2610968419999722,
+      "updates_per_s_median": 1427927.0458936216,
+      "speedup_vs_python_loop": 1.0
+    },
+    "ctypes_per_call": {
+      "iterations": 300000,
+      "median_s": 0.6485762739999927,
+      "min_s": 0.6386504269999591,
+      "max_s": 0.7485063550000177,
+      "updates_per_s_median": 462551.61039085954,
+      "speedup_vs_python_loop": 0.32393224270178783
+    },
+    "ctypes_batch": {
+      "iterations": 300000,
+      "median_s": 0.007483642000011059,
+      "min_s": 0.007410071999970569,
+      "max_s": 0.0077295799999888,
+      "updates_per_s_median": 40087433.36460465,
+      "speedup_vs_python_loop": 28.073866574547047
+    },
+    "ctypes_batch_poses": {
+      "iterations": 300000,
+      "median_s": 0.31337676999999076,
+      "min_s": 0.2814603609999722,
+      "max_s": 0.4113064299999678,
+      "updates_per_s_median": 957314.0982977418,
+      "speedup_vs_python_loop": 0.6704222747588887
+    },
+    "cpp_native": {
+      "iterations": 20000000,
+      "median_s": 0.482144,
+      "min_s": 0.473837,
+      "max_s": 0.625856,
+      "updates_per_s_median": 41481383.155239925,
+      "speedup_vs_python_loop": 29.050071762791042
+    }
+  }
+}

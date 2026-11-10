@@ -1,0 +1,4 @@
+simulation:
+  max_simulation_time: 1200.0
+experiments:
+  repetitions: 10

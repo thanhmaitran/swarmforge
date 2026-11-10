@@ -1,0 +1,47 @@
+# Defaults mirror the built-in dataclass defaults (a test enforces equality).
+simulation:
+  name: default_warehouse
+  seed: 42
+  time_step: 0.1
+  max_simulation_time: 600.0
+
+environment:
+  width: 40
+  height: 30
+  resolution: 1.0
+
+fleet:
+  robot_count: 10
+  default_robot_type: standard
+
+tasks:
+  count: 30
+  arrival: batch
+
+allocation:
+  algorithm: hungarian
+  reassignment_enabled: true
+  capability_aware: true
+
+planning:
+  algorithm: astar
+  cooperative: true
+
+coordination:
+  collision_avoidance: true
+  avoidance: basic
+  safety_margin: 0.25
+
+communication:
+  latency_ms: 0
+  packet_loss_rate: 0.0
+  state_timeout: 2.0
+
+resources:
+  energy_model_enabled: true
+  charging_enabled: true
+
+experiments:
+  repetitions: 10
+  export_csv: true
+  export_json: true

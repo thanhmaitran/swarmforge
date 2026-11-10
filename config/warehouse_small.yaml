@@ -1,0 +1,10 @@
+simulation:
+  name: warehouse_small
+  max_simulation_time: 600.0
+environment:
+  width: 20
+  height: 20
+fleet:
+  robot_count: 5
+tasks:
+  count: 20

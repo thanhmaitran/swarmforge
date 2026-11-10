@@ -1,0 +1,6 @@
+# Documentation of the simulated robot profiles (the authoritative values live in
+# src/swarmforge/agents/robot_profile.py). These are simulation assumptions, not commercial specs.
+profiles:
+  standard:   {max_speed: 1.0, payload_kg: 100, capabilities: [transport]}
+  heavy_duty: {max_speed: 0.7, payload_kg: 500, capabilities: [transport, heavy_load]}
+  fast:       {max_speed: 1.8, payload_kg: 50,  capabilities: [transport, fast_delivery]}

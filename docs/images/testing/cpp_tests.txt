@@ -1,0 +1,23 @@
+$ bash -c mkdir -p /tmp/sf_cpp && cd /tmp/sf_cpp && for t in geometry differential_drive velocity_limiter trajectory; do g++ -std=c++20 -O2 -I/home/claude/SwarmForge/cpp/include /home/claude/SwarmForge/cpp/tests/test_$t.cpp /home/claude/SwarmForge/cpp/src/geometry/geometry_utils.cpp /home/claude/SwarmForge/cpp/src/motion/*.cpp -o t_$t && ./t_$t; done
+[ OK ] normalize_angle_wraps_into_half_open_interval
+[ OK ] distance_between_poses
+[ OK ] vector_operations
+3/3 passed
+[ OK ] straight_line_motion
+[ OK ] pure_rotation_keeps_position
+[ OK ] combined_motion_and_heading_wrap
+[ OK ] zero_velocity_is_identity
+[ OK ] negative_dt_rejected
+[ OK ] invalid_dimensions_rejected
+[ OK ] wheel_speeds_to_body_velocity
+[ OK ] numerical_stability_long_run
+8/8 passed
+[ OK ] speed_is_clamped
+[ OK ] acceleration_is_limited
+[ OK ] invalid_limits_rejected
+3/3 passed
+[ OK ] trajectory_has_n_plus_one_poses
+[ OK ] empty_controls_return_start
+2/2 passed
+
+[exit code 0]

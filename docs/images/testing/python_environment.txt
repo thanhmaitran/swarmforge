@@ -1,0 +1,4 @@
+$ /usr/bin/python3 -m swarmforge info
+SwarmForge 0.1.0 | Python 3.12.3 | native kernels: True
+
+[exit code 0]

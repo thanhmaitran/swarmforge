@@ -1,0 +1,57 @@
+{
+  "small_auction_cbs": {
+    "collision_count": 0,
+    "completed_tasks": 20,
+    "energy_total": 1112.095569999997,
+    "messages_sent": 2338,
+    "reassignments": 0,
+    "safety_violations": 26,
+    "simulation_time": 191.1,
+    "total_distance": 966.0,
+    "wait_steps": 0
+  },
+  "small_cooperative_hungarian": {
+    "collision_count": 0,
+    "completed_tasks": 20,
+    "energy_total": 1114.7191699999962,
+    "messages_sent": 2434,
+    "reassignments": 0,
+    "safety_violations": 24,
+    "simulation_time": 199.1,
+    "total_distance": 968.0,
+    "wait_steps": 0
+  },
+  "small_hetero": {
+    "collision_count": 0,
+    "completed_tasks": 20,
+    "energy_total": 1370.468681799989,
+    "messages_sent": 2866,
+    "reassignments": 0,
+    "safety_violations": 32,
+    "simulation_time": 352.6,
+    "total_distance": 1014.0,
+    "wait_steps": 0
+  },
+  "small_independent_basic": {
+    "collision_count": 0,
+    "completed_tasks": 20,
+    "energy_total": 1128.5161999999955,
+    "messages_sent": 2698,
+    "reassignments": 0,
+    "safety_violations": 25,
+    "simulation_time": 221.1,
+    "total_distance": 978.0,
+    "wait_steps": 141
+  },
+  "small_lossy_network": {
+    "collision_count": 0,
+    "completed_tasks": 20,
+    "energy_total": 1114.7791699999962,
+    "messages_sent": 2447,
+    "reassignments": 0,
+    "safety_violations": 24,
+    "simulation_time": 200.1,
+    "total_distance": 968.0,
+    "wait_steps": 0
+  }
+}

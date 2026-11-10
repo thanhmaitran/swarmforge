@@ -1,0 +1,4 @@
+$ /usr/bin/python3 examples/multi_robot_planning/orca_demo.py
+minimum separation 0.600 m (2r = 0.6 m)
+
+[exit code 0]

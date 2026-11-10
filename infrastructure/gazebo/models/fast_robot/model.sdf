@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="fast_robot">
+    <link name="chassis">
+      <pose>0 0 0.140 0 0 0</pose>
+      <inertial><mass>22.50</mass><inertia><ixx>0.27000</ixx><iyy>0.49575</iyy><izz>0.71175</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+      <visual name="body"><geometry><box><size>0.5 0.36 0.12</size></box></geometry>
+        <material><ambient>0.2 0.7 0.3 1</ambient><diffuse>0.2 0.7 0.3 1</diffuse></material></visual>
+      <collision name="body"><geometry><box><size>0.5 0.36 0.12</size></box></geometry></collision>
+    </link>
+    <link name="left_wheel">
+      <pose>0 0.180 0.08 -1.5708 0 0</pose>
+      <inertial><mass>1.0</mass><inertia><ixx>0.002</ixx><iyy>0.002</iyy><izz>0.004</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+      <visual name="v"><geometry><cylinder><radius>0.08</radius><length>0.04</length></cylinder></geometry></visual>
+      <collision name="c"><geometry><cylinder><radius>0.08</radius><length>0.04</length></cylinder></geometry></collision>
+    </link>
+    <link name="right_wheel">
+      <pose>0 -0.180 0.08 -1.5708 0 0</pose>
+      <inertial><mass>1.0</mass><inertia><ixx>0.002</ixx><iyy>0.002</iyy><izz>0.004</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+      <visual name="v"><geometry><cylinder><radius>0.08</radius><length>0.04</length></cylinder></geometry></visual>
+      <collision name="c"><geometry><cylinder><radius>0.08</radius><length>0.04</length></cylinder></geometry></collision>
+    </link>
+    <link name="caster">
+      <pose>-0.2 0 0.04 0 0 0</pose>
+      <inertial><mass>0.3</mass><inertia><ixx>0.0003</ixx><iyy>0.0003</iyy><izz>0.0003</izz><ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia></inertial>
+      <collision name="c"><geometry><sphere><radius>0.04</radius></sphere></geometry>
+        <surface><friction><ode><mu>0</mu><mu2>0</mu2></ode></friction></surface></collision>
+      <visual name="v"><geometry><sphere><radius>0.04</radius></sphere></geometry></visual>
+    </link>
+    <joint name="left_wheel_joint" type="revolute"><parent>chassis</parent><child>left_wheel</child>
+      <axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>
+    <joint name="right_wheel_joint" type="revolute"><parent>chassis</parent><child>right_wheel</child>
+      <axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis></joint>
+    <joint name="caster_joint" type="ball"><parent>chassis</parent><child>caster</child></joint>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>0.360</wheel_separation>
+      <wheel_radius>0.08</wheel_radius>
+      <max_linear_velocity>1.8</max_linear_velocity>
+      <max_angular_velocity>2.5</max_angular_velocity>
+      <max_linear_acceleration>0.9</max_linear_acceleration>
+      <topic>/model/fast_robot/cmd_vel</topic>
+      <odom_topic>/model/fast_robot/odometry</odom_topic>
+      <frame_id>fast_robot/odom</frame_id>
+      <child_frame_id>fast_robot/chassis</child_frame_id>
+    </plugin>
+    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+      <publish_model_pose>true</publish_model_pose>
+    </plugin>
+  </model>
+</sdf>

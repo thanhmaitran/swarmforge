@@ -1,0 +1,22 @@
+# Run from the repository root:  docker compose -f infrastructure/docker/docker-compose.yml up --build
+services:
+  api:
+    build: { context: ../.., dockerfile: infrastructure/docker/Dockerfile.api }
+    ports: ["8000:8000"]
+  dashboard:
+    build: { context: ../.., dockerfile: infrastructure/docker/Dockerfile.dashboard }
+    ports: ["8080:80"]
+    depends_on: [api]
+  experiment-worker:
+    build: { context: ../.., dockerfile: infrastructure/docker/Dockerfile.core }
+    entrypoint: ["python", "experiments/runners/batch_runner.py"]
+    command: ["--profile", "quick"]
+    volumes: ["../../experiments/results:/app/experiments/results"]
+    profiles: ["experiments"]
+  docs:
+    image: squidfunk/mkdocs-material
+    working_dir: /docs
+    volumes: ["../..:/docs"]
+    ports: ["8001:8000"]
+    command: ["serve", "--dev-addr=0.0.0.0:8000"]
+    profiles: ["docs"]

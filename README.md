@@ -1,126 +1,320 @@
 # SwarmForge
 
-**Multi-Robot Coordination, Task Allocation & Autonomous Fleet Simulation Platform**
+**Multi-Robot Coordination, Task Allocation & Autonomous Fleet Simulation**
 
-![Python 3.12](https://img.shields.io/badge/Python-3.12-blue) ![C++20](https://img.shields.io/badge/C%2B%2B-20-orange)
-![ROS 2 Jazzy](https://img.shields.io/badge/ROS%202-Jazzy-green) ![License MIT](https://img.shields.io/badge/license-MIT-lightgrey)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![C++](https://img.shields.io/badge/C%2B%2B-20-orange)
+![React](https://img.shields.io/badge/React-TypeScript-61DAFB)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-A research-oriented platform for multi-robot task allocation, cooperative planning, motion coordination and
-reproducible fleet-scale experiments in warehouse environments.
+SwarmForge is a research-oriented multi-robot fleet simulation platform for studying task allocation, path planning, collision avoidance, and coordinated execution in warehouse environments.
 
-![Final state of a 10-robot run](docs/images/simulation/warehouse_medium_final.png)
+It combines a deterministic Python simulation engine, native C++ motion kernels, reproducible experiments, a REST/WebSocket API, and an interactive React dashboard.
 
-## Overview
+The project explores a central research question:
 
-SwarmForge answers one question with data: *how do different coordination strategies change what a robot fleet
-achieves?* It provides a deterministic core simulator, from-scratch implementations of the algorithms under
-study, and an experiment framework that records configuration, seed and environment for every number it reports.
+> How do task allocation, path planning, and coordination strategies affect the performance and safety of a multi-robot fleet?
 
-**Problem statement.** A fleet of (possibly heterogeneous) robots must complete pickup-and-delivery tasks with
-deadlines and priorities in a shared warehouse, without colliding, with limited batteries and over an unreliable
-network. Allocation, path planning, execution-time coordination and communication all interact.
+---
 
-## Key features
+## Project at a glance
 
-| Area | Implemented |
-|---|---|
-| Task allocation | Hungarian (shortest augmenting paths), Auction (epsilon-scaling), greedy baseline; hard feasibility masks (capability, payload, battery, reachability); reassignment with anti-oscillation policy; workload statistics |
-| Planning | Dijkstra, A*, space-time A*, prioritised cooperative planning, Conflict-Based Search (vertex + edge conflicts), wait-for-graph deadlock detection, selective replanning |
-| Coordination | three separate safety metrics, `none` / `basic` / `reciprocal` move arbitration, velocity obstacles, full 2-D ORCA (continuous space) |
-| Robotics | differential-drive kinematics in Python and C++20 (ctypes + optional pybind11), velocity limiter, trajectories |
-| Fleet | heterogeneous profiles (standard / heavy-duty / fast), energy model, charging stations, resource reservations |
-| Communication | latency, jitter, packet loss, expiry, stale state cache, heartbeats, acknowledged assignments with retransmission, robot failure / disconnect |
-| Platform | FastAPI REST + WebSocket, React dashboard, ROS 2 package, generated Gazebo models and worlds |
-| Research | eight experiments, seeded and paired, mean/SD/CI/IQR, paired tests + effect sizes, run metadata, regression suite |
+- **Simulation:** Multi-robot warehouse environments with configurable scenarios and random seeds.
+- **Task allocation:** Hungarian, auction, and greedy strategies.
+- **Path planning:** Dijkstra, A*, and Conflict-Based Search (CBS).
+- **Coordination:** Independent, basic, and reciprocal movement arbitration.
+- **Robotics:** Differential-drive motion and velocity-limiting kernels in Python and C++20.
+- **Experiments:** Seeded comparisons across allocation, planning, coordination, fleet, and environment scenarios.
+- **Interface:** FastAPI backend with WebSocket simulation streaming and a React dashboard.
+
+## Dashboard
+
+The dashboard provides an interface for inspecting simulation runs, fleet state, task progress, experiment comparisons, and performance metrics.
+
+### Simulation
+
+![SwarmForge simulation dashboard](docs/images/01-simulation-dashboard.png)
+
+*Simulation overview showing the warehouse environment, robot fleet, and simulation controls.*
+
+### Analytics
+
+![SwarmForge analytics dashboard](docs/images/02-analytics-dashboard.png)
+
+*Performance analytics for evaluating task completion, throughput, distance, energy, and safety-related metrics.*
+
+### Experiment results
+
+![SwarmForge experiment results](docs/images/03-experiment-results.png)
+
+*Experiment comparison interface for examining the outcomes of different simulation strategies.*
 
 ## Architecture
 
+SwarmForge separates the simulation engine from its user-facing applications and supporting infrastructure.
+
 ```text
-config + seed --> Scenario --> SimulationEngine (deterministic ticks)
-                                |- Fleet / Communication (latency, loss, heartbeats)
-                                |- Allocation (Hungarian | Auction | greedy)
-                                |- Planning (A* | Dijkstra | cooperative | CBS)
-                                |- Coordination (none | basic | reciprocal) + collision monitor
-                                '- Resources (battery, charging) + Metrics
- consumers: CLI, experiment runner, FastAPI/WebSocket -> React dashboard, ROS 2 bridge -> Gazebo
+                    Configuration + Seed
+                             |
+                             v
+                    Scenario / Environment
+                             |
+                             v
+                     Simulation Engine
+                             |
+          +------------------+------------------+
+          |                  |                  |
+          v                  v                  v
+    Task Allocation     Path Planning      Coordination
+    - Hungarian        - Dijkstra         - Independent
+    - Auction          - A*               - Basic
+    - Greedy           - CBS              - Reciprocal
+          |                  |                  |
+          +------------------+------------------+
+                             |
+                             v
+                    Fleet & Resources
+                    - Robot profiles
+                    - Battery and energy
+                    - Charging resources
+                             |
+                             v
+                       Metrics & Logs
+                             |
+             +---------------+---------------+
+             |               |               |
+             v               v               v
+            CLI          FastAPI / WS     Experiments
+                             |
+                             v
+                       React Dashboard
 ```
 
-Details: [docs/architecture/system-overview.md](docs/architecture/system-overview.md).
-The core simulator never depends on ROS 2 or Gazebo ([ADR-0004](docs/design-decisions/ADR-0004-core-simulator-independence.md)).
+The core simulator is designed to operate independently of the dashboard and API. This allows experiments and command-line simulations to run without requiring the web interface.
+
+More details: [System Architecture](docs/architecture/system-overview.md).
+
+## Key capabilities
+
+| Area | Capabilities |
+|---|---|
+| Task allocation | Hungarian assignment, auction-based allocation, greedy baseline, feasibility-aware assignment |
+| Path planning | Dijkstra, A*, space-time planning, cooperative planning, CBS |
+| Coordination | Independent, basic, and reciprocal movement arbitration |
+| Fleet simulation | Configurable robot fleets, heterogeneous robot profiles, task assignment and reassignment |
+| Motion | Differential-drive kinematics, velocity limiting, Python and C++20 implementations |
+| Resources | Battery modelling, energy metrics, charging stations and resource handling |
+| Simulation | Deterministic execution, configurable environments, seeded runs and simulation summaries |
+| Experiments | Batch execution, strategy comparisons, run metadata and aggregated metrics |
+| Backend | FastAPI REST endpoints and WebSocket simulation streaming |
+| Dashboard | React, TypeScript, Vite and interactive simulation analytics |
 
 ## Technology stack
 
-Python 3.12 (NumPy, SciPy, pandas, matplotlib, PyYAML) - C++20 - CMake + scikit-build-core (+ pybind11, optional) -
-FastAPI - React + TypeScript (Vite, Recharts) - ROS 2 Jazzy - Gazebo Harmonic - pytest, Hypothesis, ruff, mypy -
-GitHub Actions - Docker - MkDocs Material.
+| Layer | Technologies |
+|---|---|
+| Simulation engine | Python 3.12, NumPy, SciPy |
+| Native computation | C++20, CMake, scikit-build-core |
+| Backend | FastAPI, Pydantic, Uvicorn |
+| Frontend | React, TypeScript, Vite |
+| Visualisation | Matplotlib, Recharts |
+| Testing | pytest, CTest, Vitest |
+| Code quality | Ruff, mypy, TypeScript |
+| Build and development | CMake, npm, GitHub Actions |
+
+## Experimental results
+
+The following results were obtained from local simulation and experiment runs. They are scenario-specific measurements, not universal performance guarantees.
+
+### Warehouse benchmark
+
+A medium warehouse scenario was executed with 10 robots and 50 pickup-and-delivery tasks.
+
+| Metric | Result |
+|---|---:|
+| Simulation status | Completed |
+| Tasks created | 50 |
+| Tasks completed | 50 |
+| Task completion rate | **100%** |
+| Simulation time | 648.1 |
+| Average completion time | 292.98 |
+| Throughput | 0.077 |
+| Total distance | 5,332 |
+| Planning runtime | 621.813 ms |
+| Actual collision count | **0** |
+| Deadlock events | 0 |
+| Energy consumed | 5,998.933 |
+
+The run completed all tasks without recorded actual collisions or deadlock events. Safety-distance violations and predicted potential collisions are tracked separately from actual collision counts.
+
+### Benchmark evidence
+
+![Warehouse benchmark terminal output](docs/images/04-cli-benchmark.png)
+
+*Terminal output from the medium warehouse benchmark, showing the completed run and its measured metrics.*
+
+![Warehouse final simulation state](docs/images/05-warehouse-final-state.png)
+
+*Rendered final state of the medium warehouse simulation.*
+
+### Experiment findings
+
+The project includes comparative experiments covering allocation strategies, heterogeneous fleets, scalability, collision coordination, and changing environments.
+
+Selected findings from the recorded local runs:
+
+- **Heterogeneous allocation:** Capability-aware allocation avoided infeasible assignments in the tested scenarios, compared with the capability-unaware baseline.
+- **Scalability:** Increasing the fleet size increased measured task throughput in the tested configurations. CBS also incurred higher planning costs than A* and could reach its planning budget.
+- **Collision coordination:** Independent planning could produce collisions. Reciprocal coordination completed the tested workloads with zero recorded actual collisions, while a wait-only baseline could reduce task completion.
+- **Dynamic environments:** The tested obstacle, temporary blockage, new-task, and robot-failure scenarios completed with all tasks accounted for.
+- **Charging:** Charging-enabled scenarios completed all tasks in the tested energy-aware experiments.
+
+These findings should be interpreted within their experiment configurations, seeds, and simulation assumptions. Safety-distance violations, predicted conflicts, and actual collisions are distinct metrics.
+
+## Installation
+
+### Requirements
+
+- Python 3.12
+- C++20-compatible compiler
+- CMake
+- Node.js (for the dashboard)
+
+### Set up the Python environment
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+python -m pip install --upgrade pip
+pip install -e ".[dev,api]"
+```
+
+Check the installation:
+
+```powershell
+swarmforge info
+```
+
+The native motion kernels are built as part of the package installation when the required C++ build tools are available.
+
+See the [Installation Guide](docs/user-guide/installation.md) for additional details.
+
+## Run a simulation
+
+From the repository root:
+
+```powershell
+swarmforge run `
+  --config .\config\warehouse_medium.yaml `
+  --seed 42 `
+  --max-wall-seconds 300 `
+  --output .\artifacts\warehouse-medium\summary.json `
+  --render .\artifacts\warehouse-medium\final-state.png
+```
+
+The command produces a JSON summary and a rendered image of the final simulation state.
+
+## Run the tests
+
+### Python
+
+```powershell
+pytest
+```
+
+**Verified result:** 174 tests passed.
+
+### C++ native tests
+
+```powershell
+ctest --test-dir .\build\native --output-on-failure
+```
+
+**Verified result:** 4 C++ tests passed.
+
+### API tests
+
+The API service test suite was run separately.
+
+**Verified result:** 6 tests passed.
+
+### Dashboard tests
+
+From `apps/dashboard`:
+
+```powershell
+npm test
+```
+
+**Verified result:** 3 tests passed.
+
+The dashboard also has a production build command:
+
+```powershell
+npm run build
+```
 
 ## Repository structure
 
 ```text
-src/swarmforge/      core simulator (core agents environment allocation planning coordination motion fleet
-                     communication resources simulation metrics experiments visualization)
-cpp/                 C++20 kernels, C ABI + pybind11 bindings, tests, benchmark
-apps/api, apps/dashboard
-infrastructure/      ros2/swarmforge_ros, gazebo/{models,worlds}, docker/
-experiments/         scenarios (8 YAML), runners, analysis, results (raw / aggregated / metadata)
-tests/               unit integration system regression fixtures      benchmarks/  examples/
-docs/  reports/      MkDocs site, technical report, benchmark report, tables, figures
+SwarmForge/
+├── src/
+│   └── swarmforge/          # Core simulation package
+├── cpp/                     # C++20 native kernels and tests
+├── apps/
+│   ├── api/                 # FastAPI application
+│   └── dashboard/           # React + TypeScript frontend
+├── config/                  # Simulation configurations
+├── experiments/
+│   ├── scenarios/           # Experiment configurations
+│   ├── runners/             # Experiment execution
+│   └── results/             # Experiment outputs and metadata
+├── tests/                   # Python test suites
+├── benchmarks/              # Benchmark utilities
+├── examples/                # Usage examples
+├── docs/
+│   ├── architecture/        # Architecture documentation
+│   ├── design-decisions/    # Architecture decision records
+│   ├── images/              # Screenshots and simulation renders
+│   └── research/            # Research notes and limitations
+└── reports/                 # Technical and benchmark reports
 ```
-
-## Installation
-
-```powershell
-py -3.12 -m venv .venv ; .\.venv\Scripts\Activate.ps1
-pip install -e ".[dev,api]"        # needs CMake + a C++ compiler (scikit-build-core)
-swarmforge info
-```
-Pure-Python alternative without a compiler: `pip install numpy scipy pandas matplotlib pyyaml` and `PYTHONPATH=src python -m swarmforge ...`.
-More: [docs/user-guide/installation.md](docs/user-guide/installation.md).
-
-## Quick start
-
-```bash
-swarmforge run --config warehouse_medium --robots 10 --seed 42 --render final.png
-swarmforge run --config warehouse_small --allocation auction --planning cbs
-python experiments/runners/run_experiment.py --config experiments/scenarios/energy_aware.yaml --profile quick
-python examples/multi_robot_planning/cbs_demo.py
-```
-
-## Benchmark results
-
-All figures and tables in [reports/benchmark-report.md](reports/benchmark-report.md) were produced by
-`experiments/runners/batch_runner.py --profile quick` (3-5 seeds, reduced grids) on a small shared Linux sandbox;
-the exact grids, seeds, commit and hardware are in `experiments/results/metadata/`. They are *indicative*: the
-full 10-seed profile has not been run. A few headline observations (details and caveats in the report):
-
-* Optimal (Hungarian) assignment beats a greedy baseline by up to 29 % in assignment cost; the auction reaches the same cost and is faster than the pure-Python Hungarian from ~50x50 dense matrices.
-* Independent A* plans collide (up to ~9 conflicts per 10-robot instance); prioritised and CBS planning are conflict-free, CBS paths are slightly shorter and slower (median 1.6x the cooperative planner at 10 robots, 7.7x at 25 % obstacle density) and can exhaust its budget.
-* Wait-only collision avoidance removes collisions but livelocks (80-83 % completion); reciprocal sidestepping completes 100 % with zero collisions; coordinated plans still show safety-distance violations.
-* Latency up to the 1 s plan step is absorbed; 10 % packet loss costs ~2 s thanks to acknowledged assignments; robot failures cost ~28 s.
-* Without charging, energy-aware allocation avoids stranded robots (0 vs 5 depletions) but completes fewer tasks; with charging all tasks complete.
-* The C++ kinematics kernel is ~28x faster than Python in batch, but 0.3x per call through ctypes - and kinematics is not the simulator's bottleneck.
-
-## Testing
-
-`pytest` (unit, integration, system, regression, property), `ctest --test-dir build` (C++), `make check`.
-See [docs/development/testing.md](docs/development/testing.md). Continuous integration: `.github/workflows/`.
-
-## Screenshots and terminal evidence
-
-`docs/images/` holds renders and terminal captures produced by the commands in
-[docs/images/README.md](docs/images/README.md). Nothing is edited or mocked.
 
 ## Limitations
 
-Grid abstraction with unit speed, simplified energy and network models, incremental CBS, incomplete
-prioritised planning, ORCA not wired into the grid engine, and ROS 2 / Gazebo / FastAPI / React code that was
-not executed in the authoring environment. See [docs/research/limitations.md](docs/research/limitations.md).
+SwarmForge is a simulation and research platform, not a deployment-ready industrial fleet controller.
 
-## Roadmap
+Important modelling and implementation limitations include:
 
-Full 10-seed runs on dedicated hardware; ORCA/continuous Mode B integration; per-robot speed in the planner;
-decentralised auctions; ROS 2 services/actions; learning-based allocation ([future work](docs/research/future-work.md)).
+- Warehouse movement uses a discrete grid abstraction and simplified robot motion assumptions.
+- Battery, energy, and communication behaviour are simulated models rather than calibrated hardware measurements.
+- CBS and cooperative planning have computational limits as fleet size and scenario complexity increase.
+- A zero actual-collision count does not imply that every safety-distance or predicted-conflict metric is zero.
+- Dashboard and API capabilities should be distinguished from core simulation functionality; not every optional integration has been validated in a complete end-to-end deployment.
 
-## Citation and license
+Further discussion: [Research Limitations](docs/research/limitations.md).
 
-See `CITATION.cff` (repository URL and DOI to be added at release). Released under the [MIT License](LICENSE).
+## Future work
+
+Potential extensions include:
+
+- Larger-scale experiments with additional seeds and dedicated hardware.
+- More advanced continuous-space motion coordination.
+- Improved decentralised task allocation.
+- More realistic robot dynamics and energy calibration.
+- Extended ROS 2 and robotics middleware integration.
+- Learning-based allocation and planning approaches.
+
+## Documentation
+
+- [System Architecture](docs/architecture/system-overview.md)
+- [Installation Guide](docs/user-guide/installation.md)
+- [Testing Guide](docs/development/testing.md)
+- [Research Limitations](docs/research/limitations.md)
+- [Future Work](docs/research/future-work.md)
+
+## License
+
+This project is released under the MIT License. See [LICENSE](LICENSE).

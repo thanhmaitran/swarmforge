@@ -1,0 +1,5 @@
+# Baseline overrides shared by experiment write-ups (referenced in docs).
+simulation: {seed: 42}
+allocation: {algorithm: hungarian}
+planning: {algorithm: astar, cooperative: true}
+coordination: {avoidance: basic}

@@ -1,0 +1,4 @@
+planning:
+  algorithm: cbs
+  cbs_max_nodes: 2000
+  cbs_timeout_s: 2.0

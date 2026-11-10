@@ -1,0 +1,3 @@
+allocation:
+  algorithm: hungarian
+  weights: {distance: 1.0, time: 0.5, energy: 0.1, workload: 0.2, priority: 2.0}

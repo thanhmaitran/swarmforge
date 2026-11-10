@@ -1,0 +1,17 @@
+experiment,comparison,metric,n_pairs,mean_diff,t_p,wilcoxon_p,cohens_dz
+allocation_comparison,allocation.algorithm: hungarian - auction,runtime_ms,90.0,-3.0859158111165166,5.614381190998697e-17,3.160043931954347e-15,-1.092755547780286
+allocation_comparison,allocation.algorithm: greedy - hungarian,total_cost,90.0,252.43410455222227,1.540572704322923e-21,1.169004136580968e-15,1.3305994302324946
+planning_comparison,planner: cbs - cooperative,sum_of_costs,29.0,-0.4827586206896552,0.045629275966656814,0.0633177868300456,-0.38847160879219417
+planning_comparison,planner: astar - dijkstra,expanded_nodes,30.0,-796.7666666666667,2.9391622266641774e-08,1.862645149230957e-09,-1.367976986294278
+collision_comparison,strategy: independent_reciprocal - independent_basic,wait_steps,10.0,-3769.0,0.015358191802182114,0.001953125,-0.9435148431873188
+collision_comparison,strategy: independent_reciprocal - independent_basic,task_completion_rate,10.0,18.75,0.05142540095370988,0.0625,0.7099169533382992
+collision_comparison,strategy: independent_none - independent_basic,collision_count,10.0,75.2,1.5391051915111047e-06,0.001953125,3.497107059480326
+fleet_scalability,planning.algorithm: cbs - astar,planning_runtime_ms,9.0,417.42580311119406,0.005137382206087918,0.00390625,1.2711487235394245
+dynamic_environment,scenario: robot_failures - static,simulation_time,5.0,28.6,0.00022043800995979372,0.0625,5.68598582328594
+dynamic_environment,scenario: obstacle_insertion - static,simulation_time,5.0,3.6,0.14852900465352165,0.25,0.7990141709132556
+communication_constraints,communication.latency_ms: 500 - 0,simulation_time,20.0,0.7,0.04926042954312735,0.01833198983851308,0.4696978962525548
+communication_constraints,communication.packet_loss_rate: 0.1 - 0.0,simulation_time,40.0,2.125,0.0041702838306420355,0.0020786367853518964,0.48125729219631114
+heterogeneous_fleet,setup: heterogeneous_aware - heterogeneous_unaware,simulation_time,5.0,-12.3,0.2496662548954667,0.3125,-0.6017386405173372
+heterogeneous_fleet,setup: heterogeneous_aware - heterogeneous_unaware,task_completion_rate,5.0,0.0,1.0,,
+energy_aware_coordination,strategy: energy_aware_with_charging - distance_only,task_completion_rate,5.0,33.33333333333333,0.0,,
+energy_aware_coordination,strategy: energy_aware_with_charging - energy_aware,task_completion_rate,5.0,41.666666666666664,0.0,,

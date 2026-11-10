@@ -1,0 +1,68 @@
+{
+  "allocation_comparison": {
+    "figures": [
+      "allocation_comparison__runtime_ms.png",
+      "allocation_comparison__cost_gap_vs_hungarian_pct.png",
+      "allocation_comparison__assignment_success_rate.png"
+    ],
+    "paired_rows": 2
+  },
+  "planning_comparison": {
+    "figures": [
+      "planning_comparison__runtime_ms.png",
+      "planning_comparison__success.png",
+      "planning_comparison__conflicts.png",
+      "planning_comparison__cost_ratio.png"
+    ],
+    "paired_rows": 2
+  },
+  "collision_comparison": {
+    "figures": [
+      "collision_comparison__collision_count.png",
+      "collision_comparison__wait_steps.png",
+      "collision_comparison__task_completion_rate.png",
+      "collision_comparison__safety_violations.png"
+    ],
+    "paired_rows": 3
+  },
+  "fleet_scalability": {
+    "figures": [
+      "fleet_scalability__throughput.png",
+      "fleet_scalability__average_completion_time.png",
+      "fleet_scalability__planning_runtime_ms.png"
+    ],
+    "paired_rows": 1
+  },
+  "dynamic_environment": {
+    "figures": [
+      "dynamic_environment__simulation_time.png",
+      "dynamic_environment__task_completion_rate.png",
+      "dynamic_environment__replans.png"
+    ],
+    "paired_rows": 2
+  },
+  "communication_constraints": {
+    "figures": [
+      "communication_constraints__simulation_time.png",
+      "communication_constraints__task_completion_rate.png",
+      "communication_constraints__average_waiting_time.png"
+    ],
+    "paired_rows": 2
+  },
+  "heterogeneous_fleet": {
+    "figures": [
+      "heterogeneous_fleet__task_completion_rate.png",
+      "heterogeneous_fleet__infeasible_assignments.png",
+      "heterogeneous_fleet__workload_cv.png"
+    ],
+    "paired_rows": 2
+  },
+  "energy_aware_coordination": {
+    "figures": [
+      "energy_aware_coordination__task_completion_rate.png",
+      "energy_aware_coordination__battery_depletions.png",
+      "energy_aware_coordination__energy_per_task.png"
+    ],
+    "paired_rows": 2
+  }
+}

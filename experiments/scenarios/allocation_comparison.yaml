@@ -1,0 +1,24 @@
+experiment:
+  name: allocation_comparison
+  description: Computational cost and allocation quality of Hungarian, Auction and a greedy baseline.
+  kind: allocation
+  base_config: warehouse_large
+  repeats: 5
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    allocation.algorithm: [hungarian, auction, greedy]
+    fleet.robot_count: [5, 10, 25]
+    tasks.count: [20, 50, 100]
+    fleet_type: [homogeneous, heterogeneous]
+  variants:
+    fleet_type:
+      homogeneous: {}
+      heterogeneous:
+        fleet.mix: {standard: 0.5, heavy_duty: 0.25, fast: 0.25}
+        tasks.heavy_fraction: 0.2
+        tasks.fast_fraction: 0.2
+  metrics: [runtime_ms, total_cost, assignment_success_rate, unassigned_tasks, cost_gap_vs_hungarian_pct, iterations]
+  profiles:
+    quick:
+      seeds: [42, 123, 456, 789, 1024]
+      repeats: 3

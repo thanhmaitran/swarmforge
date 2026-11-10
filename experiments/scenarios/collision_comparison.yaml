@@ -1,0 +1,27 @@
+experiment:
+  name: collision_comparison
+  description: Execution-time collision avoidance strategies under uncoordinated and coordinated planning.
+  kind: simulation
+  base_config: warehouse_small
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    strategy: [independent_none, independent_basic, independent_reciprocal, cooperative_basic]
+    fleet.robot_count: [8, 12, 16]
+  variants:
+    strategy:
+      independent_none: {planning.cooperative: false, coordination.avoidance: none}
+      independent_basic: {planning.cooperative: false, coordination.avoidance: basic}
+      independent_reciprocal: {planning.cooperative: false, coordination.avoidance: reciprocal}
+      cooperative_basic: {planning.cooperative: true, coordination.avoidance: basic}
+  overrides:
+    tasks.count: 40
+    simulation.max_simulation_time: 900.0
+  max_wall_seconds: 120
+  metrics: [task_completion_rate, collision_count, safety_violations, wait_steps, deadlock_events,
+            average_execution_time, simulation_time, replans, unfinished_tasks]
+  profiles:
+    quick:
+      seeds: [42, 123, 456, 789, 1024]
+      factors:
+        strategy: [independent_none, independent_basic, independent_reciprocal, cooperative_basic]
+        fleet.robot_count: [8, 16]

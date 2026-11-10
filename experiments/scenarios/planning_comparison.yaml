@@ -1,0 +1,25 @@
+experiment:
+  name: planning_comparison
+  description: Single-agent (Dijkstra, A*) versus multi-agent (prioritised cooperative, CBS) planning on random MAPF instances.
+  kind: mapf
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    planner: [dijkstra, astar, cooperative, cbs]
+    robots: [2, 5, 10, 20]
+    obstacle_density: [0.05, 0.15, 0.25]
+  overrides:
+    map_size: 20
+    cbs_max_nodes: 5000
+    cbs_timeout_s: 10.0
+  metrics: [success, sum_of_costs, optimal_sum_single_agent, runtime_ms, expanded_nodes, high_level_nodes, conflicts]
+  profiles:
+    quick:
+      seeds: [42, 123, 456, 789, 1024]
+      factors:
+        planner: [dijkstra, astar, cooperative, cbs]
+        robots: [2, 5, 10]
+        obstacle_density: [0.05, 0.25]
+      overrides:
+        map_size: 20
+        cbs_max_nodes: 2000
+        cbs_timeout_s: 3.0

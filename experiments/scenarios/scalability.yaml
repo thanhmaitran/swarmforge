@@ -1,0 +1,26 @@
+experiment:
+  name: fleet_scalability
+  description: How does fleet size affect throughput, completion time and coordination overhead?
+  kind: simulation
+  base_config: warehouse_medium
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    fleet.robot_count: [5, 10, 25, 50]
+    allocation.algorithm: [hungarian, auction]
+    planning.algorithm: [astar, cbs]
+  overrides:
+    tasks.count: 100
+    planning.cbs_timeout_s: 1.0
+  max_wall_seconds: 300
+  metrics: [task_completion_rate, average_completion_time, throughput, total_distance, planning_runtime_ms,
+            collision_count, safety_violations, simulation_time, wait_steps]
+  profiles:
+    quick:
+      seeds: [42, 123, 456]
+      factors:
+        fleet.robot_count: [5, 10, 25]
+        allocation.algorithm: [hungarian]
+        planning.algorithm: [astar, cbs]
+      overrides:
+        tasks.count: 40
+        planning.cbs_timeout_s: 0.5

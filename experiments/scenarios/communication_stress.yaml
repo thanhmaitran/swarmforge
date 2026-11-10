@@ -1,0 +1,28 @@
+experiment:
+  name: communication_constraints
+  description: >
+    Effect of latency, packet loss and robot failure on coordination (simulated stress levels, not recommendations).
+    Latencies below the 1 s plan step are absorbed within a decision step; 1000-2000 ms levels are added to show where
+    the effect begins (state_timeout is 2 s).
+  kind: simulation
+  base_config: warehouse_small
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    communication.latency_ms: [0, 50, 100, 250, 500, 1000, 2000]
+    communication.packet_loss_rate: [0.0, 0.01, 0.05, 0.1]
+    dynamics.random_failures: [0, 2]
+  overrides:
+    fleet.robot_count: 10
+    tasks.count: 40
+    communication.state_timeout: 2.0
+    simulation.max_simulation_time: 1200.0
+  max_wall_seconds: 120
+  metrics: [task_completion_rate, simulation_time, average_completion_time, average_waiting_time, messages_dropped,
+            messages_expired, unreachable_events, reassignments, idle_time, collision_count]
+  profiles:
+    quick:
+      seeds: [42, 123, 456, 789, 1024]
+      factors:
+        communication.latency_ms: [0, 500, 1000, 2000]
+        communication.packet_loss_rate: [0.0, 0.1]
+        dynamics.random_failures: [0, 2]

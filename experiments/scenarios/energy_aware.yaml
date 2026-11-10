@@ -1,0 +1,32 @@
+experiment:
+  name: energy_aware_coordination
+  description: Distance-only allocation versus energy-aware allocation, with and without charging.
+  kind: simulation
+  base_config: warehouse_small
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    strategy: [distance_only, energy_aware, energy_aware_with_charging]
+  variants:
+    strategy:
+      distance_only:
+        resources.energy_aware_allocation: false
+        resources.charging_enabled: false
+        allocation.weights: {distance: 1.0, time: 0.5, energy: 0.0, workload: 0.2, priority: 2.0}
+      energy_aware:
+        resources.energy_aware_allocation: true
+        resources.charging_enabled: false
+        allocation.weights: {distance: 1.0, time: 0.5, energy: 0.5, workload: 0.2, priority: 2.0}
+      energy_aware_with_charging:
+        resources.energy_aware_allocation: true
+        resources.charging_enabled: true
+        allocation.weights: {distance: 1.0, time: 0.5, energy: 0.5, workload: 0.2, priority: 2.0}
+  overrides:
+    fleet.robot_count: 5
+    tasks.count: 60
+    simulation.max_simulation_time: 1500.0
+  max_wall_seconds: 120
+  metrics: [task_completion_rate, unfinished_tasks, energy_total, energy_per_task, charging_utilization,
+            battery_reserve_violations, battery_depletions, simulation_time]
+  profiles:
+    quick:
+      seeds: [42, 123, 456, 789, 1024]

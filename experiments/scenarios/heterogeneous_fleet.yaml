@@ -1,0 +1,31 @@
+experiment:
+  name: heterogeneous_fleet
+  description: Homogeneous versus heterogeneous fleets, with and without capability-aware allocation.
+  kind: simulation
+  base_config: warehouse_small
+  seeds: [42, 123, 456, 789, 1024, 2048, 4096, 8192, 16384, 32768]
+  factors:
+    setup: [homogeneous_standard_tasks, homogeneous_mixed_tasks, heterogeneous_aware, heterogeneous_unaware]
+  variants:
+    setup:
+      homogeneous_standard_tasks: {}
+      homogeneous_mixed_tasks: {tasks.heavy_fraction: 0.2, tasks.fast_fraction: 0.2}
+      heterogeneous_aware:
+        fleet.mix: {standard: 0.5, heavy_duty: 0.25, fast: 0.25}
+        tasks.heavy_fraction: 0.2
+        tasks.fast_fraction: 0.2
+      heterogeneous_unaware:
+        fleet.mix: {standard: 0.5, heavy_duty: 0.25, fast: 0.25}
+        tasks.heavy_fraction: 0.2
+        tasks.fast_fraction: 0.2
+        allocation.capability_aware: false
+  overrides:
+    fleet.robot_count: 12
+    tasks.count: 40
+    simulation.max_simulation_time: 900.0
+  max_wall_seconds: 120
+  metrics: [task_completion_rate, unfinished_tasks, infeasible_assignments, workload_cv, average_execution_time,
+            simulation_time, deadline_met_rate, idle_time]
+  profiles:
+    quick:
+      seeds: [42, 123, 456, 789, 1024]

@@ -1,0 +1,158 @@
+{
+  "robots": 25,
+  "tasks": 100,
+  "profiled_total_s": 5.219,
+  "completed": 100,
+  "top_cumulative": [
+    {
+      "function": "engine.py:118:run",
+      "calls": 1,
+      "tottime_s": 0.0044,
+      "cumtime_s": 5.3045
+    },
+    {
+      "function": "engine.py:138:step",
+      "calls": 6981,
+      "tottime_s": 0.0113,
+      "cumtime_s": 5.2992
+    },
+    {
+      "function": "scheduler.py:23:run_tick",
+      "calls": 6981,
+      "tottime_s": 0.0322,
+      "cumtime_s": 5.2768
+    },
+    {
+      "function": "engine.py:376:_phase_allocation",
+      "calls": 699,
+      "tottime_s": 0.0187,
+      "cumtime_s": 2.2507
+    },
+    {
+      "function": "cost_matrix.py:50:build",
+      "calls": 14744,
+      "tottime_s": 0.2474,
+      "cumtime_s": 2.1343
+    },
+    {
+      "function": "allocation_manager.py:36:allocate",
+      "calls": 391,
+      "tottime_s": 0.0016,
+      "cumtime_s": 1.8593
+    },
+    {
+      "function": "engine.py:593:_phase_monitor",
+      "calls": 6981,
+      "tottime_s": 0.055,
+      "cumtime_s": 1.2139
+    },
+    {
+      "function": "cost_matrix.py:38:estimates",
+      "calls": 111630,
+      "tottime_s": 0.2413,
+      "cumtime_s": 1.1282
+    },
+    {
+      "function": "collision_detector.py:32:check",
+      "calls": 6981,
+      "tottime_s": 0.339,
+      "cumtime_s": 1.08
+    },
+    {
+      "function": "engine.py:434:_phase_planning",
+      "calls": 699,
+      "tottime_s": 0.0047,
+      "cumtime_s": 1.0763
+    },
+    {
+      "function": "engine.py:482:_plan_with_avoidance",
+      "calls": 74,
+      "tottime_s": 0.0002,
+      "cumtime_s": 1.0653
+    },
+    {
+      "function": "planning_manager.py:27:plan",
+      "calls": 74,
+      "tottime_s": 0.0096,
+      "cumtime_s": 1.0651
+    },
+    {
+      "function": "cooperative.py:31:plan",
+      "calls": 74,
+      "tottime_s": 0.0011,
+      "cumtime_s": 1.0554
+    },
+    {
+      "function": "grid_graph.py:76:distance",
+      "calls": 446539,
+      "tottime_s": 0.2112,
+      "cumtime_s": 1.013
+    },
+    {
+      "function": "space_time.py:90:plan_route",
+      "calls": 124,
+      "tottime_s": 0.0085,
+      "cumtime_s": 0.8907
+    },
+    {
+      "function": "space_time.py:27:space_time_search",
+      "calls": 326,
+      "tottime_s": 0.2944,
+      "cumtime_s": 0.8818
+    },
+    {
+      "function": "grid_graph.py:55:distances_to",
+      "calls": 446865,
+      "tottime_s": 0.2912,
+      "cumtime_s": 0.848
+    },
+    {
+      "function": "engine.py:74:<lambda>",
+      "calls": 111630,
+      "tottime_s": 0.0437,
+      "cumtime_s": 0.6106
+    },
+    {
+      "function": "~:0:<built-in method builtins.min>",
+      "calls": 429961,
+      "tottime_s": 0.1525,
+      "cumtime_s": 0.5802
+    },
+    {
+      "function": "resource_manager.py:41:nearest_station_distance",
+      "calls": 111630,
+      "tottime_s": 0.0514,
+      "cumtime_s": 0.5669
+    },
+    {
+      "function": "warehouse.py:66:neighbors",
+      "calls": 536884,
+      "tottime_s": 0.2125,
+      "cumtime_s": 0.4678
+    },
+    {
+      "function": "resource_manager.py:42:<genexpr>",
+      "calls": 334890,
+      "tottime_s": 0.0757,
+      "cumtime_s": 0.4277
+    },
+    {
+      "function": "engine.py:396:_improvement_reassignments",
+      "calls": 461,
+      "tottime_s": 0.005,
+      "cumtime_s": 0.342
+    },
+    {
+      "function": "allocation_manager.py:45:improvement_candidates",
+      "calls": 828,
+      "tottime_s": 0.0121,
+      "cumtime_s": 0.3331
+    },
+    {
+      "function": "~:0:<method 'get' of 'dict' objects>",
+      "calls": 2045605,
+      "tottime_s": 0.3171,
+      "cumtime_s": 0.3171
+    }
+  ]
+}

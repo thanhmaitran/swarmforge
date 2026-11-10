@@ -1,0 +1,91 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "549e4fb224c6932b5a78a7403b79919958185ad692c3f98ec60a1661a035efed",
+  "timestamp_utc": "2026-11-09T03:56:37+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "energy_aware_coordination",
+    "description": "Distance-only allocation versus energy-aware allocation, with and without charging.",
+    "kind": "simulation",
+    "base_config": "warehouse_small",
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "factors": {
+      "strategy": [
+        "distance_only",
+        "energy_aware",
+        "energy_aware_with_charging"
+      ]
+    },
+    "variants": {
+      "strategy": {
+        "distance_only": {
+          "resources.energy_aware_allocation": false,
+          "resources.charging_enabled": false,
+          "allocation.weights": {
+            "distance": 1.0,
+            "time": 0.5,
+            "energy": 0.0,
+            "workload": 0.2,
+            "priority": 2.0
+          }
+        },
+        "energy_aware": {
+          "resources.energy_aware_allocation": true,
+          "resources.charging_enabled": false,
+          "allocation.weights": {
+            "distance": 1.0,
+            "time": 0.5,
+            "energy": 0.5,
+            "workload": 0.2,
+            "priority": 2.0
+          }
+        },
+        "energy_aware_with_charging": {
+          "resources.energy_aware_allocation": true,
+          "resources.charging_enabled": true,
+          "allocation.weights": {
+            "distance": 1.0,
+            "time": 0.5,
+            "energy": 0.5,
+            "workload": 0.2,
+            "priority": 2.0
+          }
+        }
+      }
+    },
+    "overrides": {
+      "fleet.robot_count": 5,
+      "tasks.count": 60,
+      "simulation.max_simulation_time": 1500.0
+    },
+    "max_wall_seconds": 120,
+    "metrics": [
+      "task_completion_rate",
+      "unfinished_tasks",
+      "energy_total",
+      "energy_per_task",
+      "charging_utilization",
+      "battery_reserve_violations",
+      "battery_depletions",
+      "simulation_time"
+    ]
+  },
+  "runs": 15,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 8.390555267000025
+}

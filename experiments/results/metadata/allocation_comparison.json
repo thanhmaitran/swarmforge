@@ -1,0 +1,76 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "b0622b904adc031acbe686b3e6777a4dc9e0d6f155702d98e22b3211684e2dbc",
+  "timestamp_utc": "2026-11-09T03:55:24+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "allocation_comparison",
+    "description": "Computational cost and allocation quality of Hungarian, Auction and a greedy baseline.",
+    "kind": "allocation",
+    "base_config": "warehouse_large",
+    "repeats": 3,
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "factors": {
+      "allocation.algorithm": [
+        "hungarian",
+        "auction",
+        "greedy"
+      ],
+      "fleet.robot_count": [
+        5,
+        10,
+        25
+      ],
+      "tasks.count": [
+        20,
+        50,
+        100
+      ],
+      "fleet_type": [
+        "homogeneous",
+        "heterogeneous"
+      ]
+    },
+    "variants": {
+      "fleet_type": {
+        "homogeneous": {},
+        "heterogeneous": {
+          "fleet.mix": {
+            "standard": 0.5,
+            "heavy_duty": 0.25,
+            "fast": 0.25
+          },
+          "tasks.heavy_fraction": 0.2,
+          "tasks.fast_fraction": 0.2
+        }
+      }
+    },
+    "metrics": [
+      "runtime_ms",
+      "total_cost",
+      "assignment_success_rate",
+      "unassigned_tasks",
+      "cost_gap_vs_hungarian_pct",
+      "iterations"
+    ],
+    "overrides": {}
+  },
+  "runs": 270,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 40.22377281300004
+}

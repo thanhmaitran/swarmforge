@@ -1,0 +1,78 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "335ebb6611f667ae1350b0c89c19b8465bac2d20155d62ded43a869aff7c2c2a",
+  "timestamp_utc": "2026-11-09T03:56:21+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "dynamic_environment",
+    "description": "Replanning behaviour under obstacle insertion/removal, robot failures and continuously arriving tasks.",
+    "kind": "simulation",
+    "base_config": "warehouse_small",
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "factors": {
+      "scenario": [
+        "static",
+        "obstacle_insertion",
+        "temporary_blockage",
+        "new_tasks_during_run",
+        "robot_failures"
+      ]
+    },
+    "variants": {
+      "scenario": {
+        "static": {},
+        "obstacle_insertion": {
+          "dynamics.random_obstacle_events": 8,
+          "dynamics.random_obstacle_duration": 1000000.0
+        },
+        "temporary_blockage": {
+          "dynamics.random_obstacle_events": 8,
+          "dynamics.random_obstacle_duration": 25.0
+        },
+        "new_tasks_during_run": {
+          "tasks.arrival": "poisson",
+          "tasks.arrival_rate": 0.12
+        },
+        "robot_failures": {
+          "dynamics.random_failures": 2,
+          "dynamics.random_failure_duration": 30.0
+        }
+      }
+    },
+    "overrides": {
+      "fleet.robot_count": 10,
+      "tasks.count": 40,
+      "simulation.max_simulation_time": 1200.0
+    },
+    "max_wall_seconds": 120,
+    "metrics": [
+      "task_completion_rate",
+      "simulation_time",
+      "total_distance",
+      "replans",
+      "planning_runtime_ms",
+      "unfinished_tasks",
+      "average_completion_time",
+      "reassignments",
+      "collision_count"
+    ]
+  },
+  "runs": 25,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 9.348262550000015
+}

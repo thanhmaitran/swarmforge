@@ -1,0 +1,59 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "4498fcc646c0feb3d3fb087ac11424939772194f9db88902a5d83d426d146520",
+  "timestamp_utc": "2026-11-09T03:56:11+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "fleet_scalability",
+    "description": "How does fleet size affect throughput, completion time and coordination overhead?",
+    "kind": "simulation",
+    "base_config": "warehouse_medium",
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "factors": {
+      "fleet.robot_count": [
+        5,
+        10,
+        25
+      ],
+      "allocation.algorithm": [
+        "hungarian"
+      ],
+      "planning.algorithm": [
+        "astar",
+        "cbs"
+      ]
+    },
+    "overrides": {
+      "tasks.count": 40,
+      "planning.cbs_timeout_s": 0.5
+    },
+    "max_wall_seconds": 300,
+    "metrics": [
+      "task_completion_rate",
+      "average_completion_time",
+      "throughput",
+      "total_distance",
+      "planning_runtime_ms",
+      "collision_count",
+      "safety_violations",
+      "simulation_time",
+      "wait_steps"
+    ]
+  },
+  "runs": 18,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 17.512140032000048
+}

@@ -1,0 +1,61 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "0107cbfb2e686da71c5048f9fb8217e2f806fed0af5d112f01c11308b8acd217",
+  "timestamp_utc": "2026-11-09T03:55:27+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "planning_comparison",
+    "description": "Single-agent (Dijkstra, A*) versus multi-agent (prioritised cooperative, CBS) planning on random MAPF instances.",
+    "kind": "mapf",
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "factors": {
+      "planner": [
+        "dijkstra",
+        "astar",
+        "cooperative",
+        "cbs"
+      ],
+      "robots": [
+        2,
+        5,
+        10
+      ],
+      "obstacle_density": [
+        0.05,
+        0.25
+      ]
+    },
+    "overrides": {
+      "map_size": 20,
+      "cbs_max_nodes": 2000,
+      "cbs_timeout_s": 3.0
+    },
+    "metrics": [
+      "success",
+      "sum_of_costs",
+      "optimal_sum_single_agent",
+      "runtime_ms",
+      "expanded_nodes",
+      "high_level_nodes",
+      "conflicts"
+    ]
+  },
+  "runs": 120,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 3.609182773000043
+}

@@ -1,0 +1,79 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "e20df2c376702e8d7eadbba68da52de109eedc8933023e81b475f61838c6b3e0",
+  "timestamp_utc": "2026-11-09T03:55:54+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "collision_comparison",
+    "description": "Execution-time collision avoidance strategies under uncoordinated and coordinated planning.",
+    "kind": "simulation",
+    "base_config": "warehouse_small",
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "factors": {
+      "strategy": [
+        "independent_none",
+        "independent_basic",
+        "independent_reciprocal",
+        "cooperative_basic"
+      ],
+      "fleet.robot_count": [
+        8,
+        16
+      ]
+    },
+    "variants": {
+      "strategy": {
+        "independent_none": {
+          "planning.cooperative": false,
+          "coordination.avoidance": "none"
+        },
+        "independent_basic": {
+          "planning.cooperative": false,
+          "coordination.avoidance": "basic"
+        },
+        "independent_reciprocal": {
+          "planning.cooperative": false,
+          "coordination.avoidance": "reciprocal"
+        },
+        "cooperative_basic": {
+          "planning.cooperative": true,
+          "coordination.avoidance": "basic"
+        }
+      }
+    },
+    "overrides": {
+      "tasks.count": 40,
+      "simulation.max_simulation_time": 900.0
+    },
+    "max_wall_seconds": 120,
+    "metrics": [
+      "task_completion_rate",
+      "collision_count",
+      "safety_violations",
+      "wait_steps",
+      "deadlock_events",
+      "average_execution_time",
+      "simulation_time",
+      "replans",
+      "unfinished_tasks"
+    ]
+  },
+  "runs": 40,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 26.26014052200003
+}

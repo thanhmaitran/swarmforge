@@ -1,0 +1,83 @@
+{
+  "project_version": "0.1.0",
+  "git_commit": "ca4bcfb17fd82bd30f0e12d9035ba551b2e1ccbc",
+  "git_dirty": false,
+  "python_version": "3.12.3",
+  "cpp_compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "native_kernels_available": true,
+  "operating_system": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "cpu_count": 1,
+  "experiment_hash": "6f082f232a31c318b1290720cd8df5ec460d5b9817f645392930005240c80e60",
+  "timestamp_utc": "2026-11-09T03:56:29+00:00",
+  "status": "completed",
+  "experiment": {
+    "name": "heterogeneous_fleet",
+    "description": "Homogeneous versus heterogeneous fleets, with and without capability-aware allocation.",
+    "kind": "simulation",
+    "base_config": "warehouse_small",
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      1024
+    ],
+    "factors": {
+      "setup": [
+        "homogeneous_standard_tasks",
+        "homogeneous_mixed_tasks",
+        "heterogeneous_aware",
+        "heterogeneous_unaware"
+      ]
+    },
+    "variants": {
+      "setup": {
+        "homogeneous_standard_tasks": {},
+        "homogeneous_mixed_tasks": {
+          "tasks.heavy_fraction": 0.2,
+          "tasks.fast_fraction": 0.2
+        },
+        "heterogeneous_aware": {
+          "fleet.mix": {
+            "standard": 0.5,
+            "heavy_duty": 0.25,
+            "fast": 0.25
+          },
+          "tasks.heavy_fraction": 0.2,
+          "tasks.fast_fraction": 0.2
+        },
+        "heterogeneous_unaware": {
+          "fleet.mix": {
+            "standard": 0.5,
+            "heavy_duty": 0.25,
+            "fast": 0.25
+          },
+          "tasks.heavy_fraction": 0.2,
+          "tasks.fast_fraction": 0.2,
+          "allocation.capability_aware": false
+        }
+      }
+    },
+    "overrides": {
+      "fleet.robot_count": 12,
+      "tasks.count": 40,
+      "simulation.max_simulation_time": 900.0
+    },
+    "max_wall_seconds": 120,
+    "metrics": [
+      "task_completion_rate",
+      "unfinished_tasks",
+      "infeasible_assignments",
+      "workload_cv",
+      "average_execution_time",
+      "simulation_time",
+      "deadline_met_rate",
+      "idle_time"
+    ]
+  },
+  "runs": 20,
+  "errors": 0,
+  "invalid_runs": 0,
+  "wall_time_s": 7.919863274000022
+}

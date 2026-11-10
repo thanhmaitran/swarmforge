@@ -1,0 +1,38 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,api]"
+      # ruff and mypy were not available where this repository was authored: run `ruff check --fix` and fix any mypy findings,
+      # then remove continue-on-error to make these gates blocking (quality gate in the project plan).
+      - name: Lint
+        continue-on-error: true
+        run: ruff check src tests apps scripts experiments examples
+      - name: Type check
+        continue-on-error: true
+        run: mypy
+      - name: Build native kernels (enables the Python/C++ equivalence test)
+        run: python -m swarmforge.motion.native --build
+      - name: Test with coverage
+        run: pytest --cov=swarmforge --cov-report=term-missing --cov-report=xml
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml

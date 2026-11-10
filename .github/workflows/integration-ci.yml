@@ -1,0 +1,34 @@
+name: Integration CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  experiments-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev,api]"
+      - name: CLI smoke run
+        run: swarmforge run --config warehouse_small --robots 5 --tasks 10 --seed 42
+      - name: Quick experiment smoke run
+        run: python experiments/runners/run_experiment.py --config experiments/scenarios/energy_aware.yaml --profile quick --out /tmp/results
+  dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+        working-directory: apps/dashboard
+      - run: npm run build && npm test
+        working-directory: apps/dashboard
+# ROS 2 / Gazebo integration is intentionally not part of this workflow: it needs a dedicated Ubuntu 24.04 +
+# ROS 2 Jazzy image and should be added as a separate job once that environment is stable.

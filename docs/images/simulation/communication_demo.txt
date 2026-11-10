@@ -1,0 +1,6 @@
+$ /usr/bin/python3 examples/communication_constraints/delayed_communication_demo.py
+latency=  0 ms loss=0%: mean task start   60.1s, dropped=0, log balanced=True
+latency=250 ms loss=0%: mean task start   61.1s, dropped=0, log balanced=True
+latency=250 ms loss=10%: mean task start   61.1s, dropped=199, log balanced=True
+
+[exit code 0]

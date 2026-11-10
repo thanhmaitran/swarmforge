@@ -1,0 +1,18 @@
+$ /usr/bin/python3 -m swarmforge run --config warehouse_medium --robots 10 --seed 42 --render /home/claude/SwarmForge/docs/images/simulation/warehouse_medium_final.png
+status                     completed
+termination_reason         all_tasks_done
+simulation_time            648.100
+completed_tasks            50
+created_tasks              50
+task_completion_rate       100.000
+average_completion_time    292.980
+throughput                 0.077
+total_distance             5332.000
+planning_runtime_ms        125.650
+collision_count            0
+safety_violations          73
+deadlock_events            0
+energy_total               5998.933
+wrote /home/claude/SwarmForge/docs/images/simulation/warehouse_medium_final.png
+
+[exit code 0]
